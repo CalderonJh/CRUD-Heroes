@@ -1,0 +1,45 @@
+<div class="card">
+  <p-megaMenu [model]="items" styleClass="flex">
+    <ng-template pTemplate="start">
+      <div class="flex align-items-center">
+        <img
+          src="https://primefaces.org/cdn/primeng/images/primeng.svg"
+          height="40"
+        />
+        <span
+          class="font-bold ml-1 mr-4 text-2xl"
+          style="font-family: Genos, serif"
+          >Heroes</span
+        >
+      </div>
+    </ng-template>
+    <ng-template pTemplate="end">
+        <div class="col">
+          <form [formGroup]="formGroup">
+            <p-autoComplete
+              class="p-inputtext-sm"
+              [size]="80"
+              [inputStyle]="{ width: '100%' }"
+              id="publisher"
+              placeholder="Search heroes by name"
+              formControlName="selectedCountry"
+              [suggestions]="filtered"
+              (completeMethod)="suggestion($event)"
+            ></p-autoComplete>
+          </form>
+      </div>
+
+      <!--<div class="mr-3">
+        <span class="p-input-icon-right">
+          <i class="pi pi-search"></i>
+          <input
+            placeholder="Search hero by name"
+            type="text"
+            pInputText
+            style="width: 35vw"
+          />
+        </span>
+      </div>-->
+    </ng-template>
+  </p-megaMenu>
+</div>

@@ -1,1 +1,11 @@
-<p>Hero page list works</p>
+<div class="">
+  <div class="grid m-2">
+    <div *ngFor="let hero of heroes" class="col md:col sm:col">
+      <heroes-hero-card
+        [editable]="true"
+        [_hero]="hero"
+      >
+      </heroes-hero-card>
+    </div>
+  </div>
+</div>

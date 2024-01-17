@@ -1,1 +1,75 @@
-<p>new-hero-page works!</p>
+<div class="m-5">
+  <h2>Superhero</h2>
+  <div class="grid">
+    <div class="col">
+      <form [formGroup]="formGroup">
+        <div class="flex flex-column gap-1 mb-2">
+          <label for="hero-name">Name</label>
+          <input
+            placeholder="Enter the superhero's name"
+            pInputText
+            id="hero-name"
+          />
+        </div>
+
+        <div class="flex flex-column gap-1 mt-5">
+          <label for="alter-ego">Alter ego</label>
+          <input
+            placeholder="What is their real name?"
+            pInputText
+            id="alter-ego"
+          />
+        </div>
+
+        <div class="flex flex-column gap-1 mt-5 mr-0">
+          <label for="publisher">Publisher</label>
+          <p-autoComplete
+            [size]="100"
+            [inputStyle]="{ width: '100%' }"
+            id="publisher"
+            placeholder="Publisher"
+            formControlName="selectedCountry"
+            [suggestions]="filtered"
+            (completeMethod)="suggestion($event)"
+          ></p-autoComplete>
+        </div>
+
+        <div class="flex flex-column gap-1 mt-5">
+          <label for="first-appearance">First appearance</label>
+          <input
+            placeholder="The first comic where this character appears"
+            pInputText
+            id="first-appearance"
+          />
+        </div>
+
+        <div class="card flex justify-content-start mt-5">
+          <p-toast></p-toast>
+          <p-fileUpload
+            [chooseIcon]="'pi-upload'"
+            mode="basic"
+            name="demo[]"
+            url="https://www.primefaces.org/cdn/api/upload.php"
+            accept="image/*"
+            [maxFileSize]="1000000"
+            (onUpload)="onUpload($event)"
+            [auto]="true"
+            chooseLabel="Image"
+          ></p-fileUpload>
+        </div>
+
+        <div class="flex justify-content-start mt-5">
+          <p-button [rounded]="true" label="Submit"></p-button>
+        </div>
+      </form>
+    </div>
+
+    <div class="col">
+      <div class="grid justify-content-center">
+        <div class="">
+          <heroes-hero-card></heroes-hero-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

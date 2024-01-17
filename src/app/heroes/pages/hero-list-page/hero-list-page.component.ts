@@ -1,15 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { GetHeroesService } from '../../services/get-heroes.service';
+import { Hero } from '../../interfaces/hero.interface';
 
 @Component({
   selector: 'heores-list-page',
   templateUrl: './hero-list-page.component.html',
-  styles: ``
+  styles: ``,
 })
-export class HeroListPageComponent {
+export class HeroListPageComponent implements OnInit {
 
-  _show = false;
+  heroes: Hero[] = [];
 
-  showMenu() {
-    this._show = true;
+  constructor(private getHeroesService: GetHeroesService) {}
+
+  ngOnInit(): void {
+    this.getHeroesService.getHeroes().subscribe((heroesRes) => {
+      this.heroes = heroesRes;
+    });
   }
 }

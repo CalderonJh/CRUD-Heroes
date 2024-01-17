@@ -8,6 +8,12 @@ import { HeroListPageComponent } from './pages/hero-list-page/hero-list-page.com
 import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { NewHeroPageComponent } from './pages/new-hero-page/new-hero-page.component';
 
+import { MenuComponent } from './components/menu/menu.component';
+import { HeroCardComponent } from './components/hero-card/hero-card.component';
+import {PrimeNgModule} from "../prime-ng/prime-ng.module";
+import {FormsModule} from "@angular/forms";
+import { HeroImagePipe } from './pipes/hero-image.pipe';
+
 
 @NgModule({
   declarations: [
@@ -15,11 +21,11 @@ import { NewHeroPageComponent } from './pages/new-hero-page/new-hero-page.compon
     LayoutPageComponent,
     HeroListPageComponent,
     SearchPageComponent,
-    NewHeroPageComponent
+    NewHeroPageComponent,
+    MenuComponent,
+    HeroCardComponent,
+    HeroImagePipe,
   ],
-  imports: [
-    CommonModule,
-    HeroesRoutingModule
-  ]
+  imports: [CommonModule, HeroesRoutingModule, PrimeNgModule, FormsModule],
 })
-export class HeroesModule { }
+export class HeroesModule {}
