@@ -21,4 +21,13 @@ export class CreateHeroService {
   }
 
   constructor() {}
+
+  reset(){
+    this.setCardItem = {
+      header: ' - ',
+      subheader: ' - ',
+      url:'https://i0.wp.com/www.primefaces.org/wp-content/uploads/2018/05/primeng-logo-black.png'
+    }
+  }
+
 }

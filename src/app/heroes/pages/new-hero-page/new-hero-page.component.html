@@ -1,12 +1,11 @@
 <div class="m-5">
   <div class="grid">
     <div class="col justify-content-end">
-      <form [formGroup]="formGroup">
+      <form [formGroup]="formGroup" (keyup)="updateCard()">
         <div class="flex flex-column gap-1 mb-2">
           <label for="hero-name">Name</label>
           <input
             required
-            (keyup)="updateCard()"
             formControlName="superhero"
             placeholder="The superhero's name"
             pInputText
@@ -27,7 +26,6 @@
         <div class="flex flex-column gap-1 mt-5 mr-0">
           <label for="publisher">Publisher</label>
           <p-autoComplete
-            (keyup)="updateCard()"
             [size]="100"
             [inputStyle]="{ width: '100%' }"
             id="publisher"
@@ -65,13 +63,6 @@
                 class="p-button"
               ></button>
             </p-inputGroup>
-            <!--            <input-->
-            <!--              style="width: 100%"-->
-            <!--              formControlName="image_url"-->
-            <!--              placeholder="Image url"-->
-            <!--              pInputText-->
-            <!--              id="image_url"-->
-            <!--            />-->
           </div>
           <div class="col-3">
             <p-toast></p-toast>
@@ -91,6 +82,7 @@
 
         <div class="flex justify-content-start mt-5">
           <p-button
+            (click)="exit()"
             [rounded]="true"
             severity="danger"
             class="mr-3"

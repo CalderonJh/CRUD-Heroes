@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators as vd } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { AutoCompleteCompleteEvent } from '../../interfaces/form.interface';
 import { FileUploadEvent } from 'primeng/fileupload';
@@ -16,12 +16,12 @@ import { switchMap } from 'rxjs';
   styles: ``,
 })
 export class NewHeroPageComponent implements OnInit {
-  formGroup: FormGroup = new FormGroup({
-    superhero: new FormControl<string>('', { nonNullable: true }),
-    publisher: new FormControl<string>(''),
-    alter_ego: new FormControl<string>(''),
-    first_appearance: new FormControl<string>(''),
-    image_url: new FormControl<string>(''),
+  formGroup: FormGroup = this.formBuilder.group({
+    superhero: ['', [vd.required]],
+    publisher: ['', [vd.required]],
+    alter_ego: [''],
+    first_appearance: [''],
+    image_url: [''],
   });
 
   publishers: any[] = [
@@ -42,6 +42,7 @@ export class NewHeroPageComponent implements OnInit {
   _hero: Hero | undefined;
 
   constructor(
+    private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private messageService: MessageService,
@@ -49,15 +50,13 @@ export class NewHeroPageComponent implements OnInit {
     private restHeroService: RestHeroService,
   ) {}
 
-
   ngOnInit(): void {
-
     if (this.router.url.includes('new')) return;
     this.activatedRoute.params
       .pipe(switchMap(({ id }) => this.restHeroService.getHeroById(id)))
       .subscribe((hero) => {
         if (!hero) {
-          this.router.navigateByUrl('/404');
+          this.router.navigate(['/404']);
           return;
         }
         this.formGroup.reset(hero);
@@ -65,14 +64,14 @@ export class NewHeroPageComponent implements OnInit {
         this.createHeroService.setCardItem = {
           header: hero.superhero,
           subheader: hero.publisher,
+          url: hero.image_url,
         };
 
         return;
       });
   }
 
-
-  toHero(): Hero {
+  formDataToHero(): Hero {
     return this.formGroup.value as Hero;
   }
 
@@ -88,40 +87,43 @@ export class NewHeroPageComponent implements OnInit {
     this.filtered = filtered;
   }
 
-
   onUpload(event: FileUploadEvent) {
-    console.log({ event });
+    console.log(event)
     this.messageService.add({
-      severity: 'info',
-      summary: 'Success',
-      detail: 'File Uploaded with Basic Mode',
+      severity: 'error',
+      summary: 'Error',
+      detail: 'This functionality is not implemented',
     });
   }
-
 
   updateCard() {
     this.createHeroService.setCardItem = {
       header: this.formGroup.value.superhero,
       subheader: this.formGroup.value.publisher,
+      url:
+        this.formGroup.get('image_url')?.value ||
+        'https://i0.wp.com/www.primefaces.org/wp-content/uploads/2018/05/primeng-logo-black.png',
     };
   }
 
-
   onSubmit(): void {
-    console.log(this.formGroup.valid);
-    console.log(this.formGroup.getRawValue());
     if (this.formGroup.invalid) {
       this.messageService.add({
         severity: 'error',
-        summary: "Invalid form",
-        detail: 'Hero\'s name is required',
+        summary: 'Invalid form',
+        detail: "Hero's name and publisher are required",
       });
-    }
-    const hero: Hero = this.toHero();
-    if (!!hero.id) {
-      this.restHeroService.update(this.toHero()).subscribe();
       return;
     }
-    this.restHeroService.post(hero).subscribe();
+    const hero: Hero = this.formDataToHero();
+    if (!hero.id) this.restHeroService.post(hero).subscribe();
+    else this.restHeroService.update(this.formDataToHero()).subscribe();
+    this.router.navigate(["/heroes"])
+    this.createHeroService.reset();
+  }
+
+  exit() {
+    this.router.navigate(["/heroes"])
+    this.formGroup.reset();
   }
 }
