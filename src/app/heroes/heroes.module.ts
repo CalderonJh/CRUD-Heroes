@@ -12,7 +12,6 @@ import { HeroCardComponent } from './components/hero-card/hero-card.component';
 import { PrimeNgModule } from '../prime-ng/prime-ng.module';
 import { FormsModule } from '@angular/forms';
 import { HeroImagePipe } from './pipes/hero-image.pipe';
-import {BrowserModule} from "@angular/platform-browser";
 
 @NgModule({
   declarations: [
@@ -25,7 +24,6 @@ import {BrowserModule} from "@angular/platform-browser";
     HeroImagePipe,
   ],
   imports: [
-    BrowserModule,
     CommonModule,
     HeroesRoutingModule,
     PrimeNgModule,

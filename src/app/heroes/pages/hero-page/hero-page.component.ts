@@ -3,13 +3,13 @@ import { Hero } from '../../interfaces/hero.interface';
 import { RestHeroService } from '../../services/rest-hero.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
-import {MessageService} from "primeng/api";
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'heroes-hero-page',
   templateUrl: './hero-page.component.html',
   styleUrl: `./hero-page.component.css`,
-  providers:[MessageService]
+  providers: [MessageService],
 })
 export class HeroPageComponent implements OnInit {
   hero!: Hero;
@@ -49,6 +49,8 @@ export class HeroPageComponent implements OnInit {
           detail: 'Hero was deleted',
         });
     });
-      // this.router.navigateByUrl('/heroes')
+    setTimeout(() => {
+      this.router.navigateByUrl('/heroes');
+    }, 400);
   }
 }

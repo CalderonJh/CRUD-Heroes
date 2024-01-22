@@ -25,7 +25,7 @@
       <p-button
         class="mx-2"
         icon="pi pi-user-edit"
-        [routerLink]="['/heroes/edit', hero.id]"
+        [routerLink]="['/heroes/edit', hero?.id]"
         label="Edit"
       ></p-button>
       <p-toast></p-toast>
@@ -33,7 +33,7 @@
         class="mx-2"
         icon="pi pi-trash"
         severity="danger"
-        (click)="deleteHero(hero.id)"
+        (click)="deleteHero(hero?.id)"
         label="Delete"
       ></p-button>
     </div>

@@ -3,7 +3,6 @@ import { Hero } from '../../interfaces/hero.interface';
 import { CreateHeroService } from '../../services/create-hero.service';
 import { Observable } from 'rxjs';
 import {CardItem} from "../../interfaces/form.interface";
-import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
 
 @Component({
   selector: 'heroes-hero-card',
@@ -35,10 +34,4 @@ export class HeroCardComponent implements OnInit {
       this.subheader = res.subheader ? res.subheader : '_';
     });
   }
-
-
-  onClick() {
-  }
-
-    protected readonly log = log;
 }

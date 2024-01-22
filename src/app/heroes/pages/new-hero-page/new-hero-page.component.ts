@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators as vd } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { AutoCompleteCompleteEvent } from '../../interfaces/form.interface';
@@ -15,7 +15,7 @@ import { switchMap } from 'rxjs';
   providers: [MessageService],
   styles: ``,
 })
-export class NewHeroPageComponent implements OnInit {
+export class NewHeroPageComponent implements OnInit, OnDestroy {
   formGroup: FormGroup = this.formBuilder.group({
     superhero: ['', [vd.required]],
     publisher: ['', [vd.required]],
@@ -88,7 +88,7 @@ export class NewHeroPageComponent implements OnInit {
   }
 
   onUpload(event: FileUploadEvent) {
-    console.log(event)
+    console.log(event);
     this.messageService.add({
       severity: 'error',
       summary: 'Error',
@@ -102,6 +102,7 @@ export class NewHeroPageComponent implements OnInit {
       subheader: this.formGroup.value.publisher,
       url:
         this.formGroup.get('image_url')?.value ||
+        `assets/heroes/${this._hero?.id}.jpg` ||
         'https://i0.wp.com/www.primefaces.org/wp-content/uploads/2018/05/primeng-logo-black.png',
     };
   }
@@ -116,14 +117,19 @@ export class NewHeroPageComponent implements OnInit {
       return;
     }
     const hero: Hero = this.formDataToHero();
-    if (!hero.id) this.restHeroService.post(hero).subscribe();
+    if (!this._hero?.id) this.restHeroService.post(hero).subscribe();
     else this.restHeroService.update(this.formDataToHero()).subscribe();
-    this.router.navigate(["/heroes"])
+    this.router.navigate(['/heroes']);
     this.createHeroService.reset();
   }
 
   exit() {
-    this.router.navigate(["/heroes"])
+    this.router.navigate(['/heroes']);
     this.formGroup.reset();
+  }
+
+  ngOnDestroy(): void {
+    this.formGroup.reset();
+    this.createHeroService.reset();
   }
 }
