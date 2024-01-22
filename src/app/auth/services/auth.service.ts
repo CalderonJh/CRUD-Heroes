@@ -14,7 +14,6 @@ export class AuthService {
   }
 
   login(user: string, password: string) {
-
     this.httpClient.get<User>(this.baseURL + `/users/${user}`);
   }
 }

@@ -11,6 +11,8 @@ import {ToastModule} from "primeng/toast";
 import {TableModule} from "primeng/table";
 import {DataViewModule} from "primeng/dataview";
 import {PasswordModule} from "primeng/password";
+import {InputGroupModule} from "primeng/inputgroup";
+import {InputGroupAddonModule} from "primeng/inputgroupaddon";
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import {PasswordModule} from "primeng/password";
     TableModule,
     DataViewModule,
     PasswordModule,
-    ToastModule
+    ToastModule,
+    InputGroupModule,
+    InputGroupAddonModule
   ]
 })
 export class PrimeNgModule { }

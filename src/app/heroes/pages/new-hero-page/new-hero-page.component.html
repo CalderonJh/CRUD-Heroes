@@ -50,13 +50,28 @@
 
         <div class="grid justify-content-between mt-5">
           <div class="col-9">
-            <input
-              style="width: 100%"
-              formControlName="image_url"
-              placeholder="Image url"
-              pInputText
-              id="image_url"
-            />
+            <p-inputGroup>
+              <input
+                formControlName="image_url"
+                type="text"
+                id="image_url"
+                pInputText
+                placeholder="Image URL"
+              />
+              <button
+                type="button"
+                pButton
+                icon="pi pi-check"
+                class="p-button"
+              ></button>
+            </p-inputGroup>
+            <!--            <input-->
+            <!--              style="width: 100%"-->
+            <!--              formControlName="image_url"-->
+            <!--              placeholder="Image url"-->
+            <!--              pInputText-->
+            <!--              id="image_url"-->
+            <!--            />-->
           </div>
           <div class="col-3">
             <p-toast></p-toast>
@@ -72,12 +87,20 @@
               chooseLabel="Load"
             ></p-fileUpload>
           </div>
-
         </div>
 
         <div class="flex justify-content-start mt-5">
-          <p-button [rounded]="true" severity="danger" class="mr-3" label="Cancel"></p-button>
-          <p-button [rounded]="true" label="Submit" (click)="onSubmit()"></p-button>
+          <p-button
+            [rounded]="true"
+            severity="danger"
+            class="mr-3"
+            label="Cancel"
+          ></p-button>
+          <p-button
+            [rounded]="true"
+            label="Submit"
+            (click)="onSubmit()"
+          ></p-button>
         </div>
       </form>
     </div>

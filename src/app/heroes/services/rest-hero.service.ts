@@ -12,7 +12,9 @@ export class RestHeroService {
   constructor(private httpClient: HttpClient) {}
 
   get(): Observable<Hero[]> {
-    return this.httpClient.get<Hero[]>(`${this.baseURL}/heroes`);
+    return this.httpClient
+      .get<Hero[]>(`${this.baseURL}/heroes`)
+      .pipe(map((res) => res.reverse()));
   }
 
   getHeroById(id: string): Observable<Hero | undefined> {
