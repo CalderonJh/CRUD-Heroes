@@ -1,12 +1,14 @@
 <div class="m-5">
-  <h2>Superhero</h2>
   <div class="grid">
-    <div class="col">
+    <div class="col justify-content-end">
       <form [formGroup]="formGroup">
         <div class="flex flex-column gap-1 mb-2">
           <label for="hero-name">Name</label>
           <input
-            placeholder="Enter the superhero's name"
+            required
+            (keyup)="updateCard()"
+            formControlName="superhero"
+            placeholder="The superhero's name"
             pInputText
             id="hero-name"
           />
@@ -15,7 +17,8 @@
         <div class="flex flex-column gap-1 mt-5">
           <label for="alter-ego">Alter ego</label>
           <input
-            placeholder="What is their real name?"
+            formControlName="alter_ego"
+            placeholder="Heroic alias"
             pInputText
             id="alter-ego"
           />
@@ -24,11 +27,12 @@
         <div class="flex flex-column gap-1 mt-5 mr-0">
           <label for="publisher">Publisher</label>
           <p-autoComplete
+            (keyup)="updateCard()"
             [size]="100"
             [inputStyle]="{ width: '100%' }"
             id="publisher"
             placeholder="Publisher"
-            formControlName="selectedCountry"
+            formControlName="publisher"
             [suggestions]="filtered"
             (completeMethod)="suggestion($event)"
           ></p-autoComplete>
@@ -37,29 +41,43 @@
         <div class="flex flex-column gap-1 mt-5">
           <label for="first-appearance">First appearance</label>
           <input
+            formControlName="first_appearance"
             placeholder="The first comic where this character appears"
             pInputText
             id="first-appearance"
           />
         </div>
 
-        <div class="card flex justify-content-start mt-5">
-          <p-toast></p-toast>
-          <p-fileUpload
-            [chooseIcon]="'pi-upload'"
-            mode="basic"
-            name="demo[]"
-            url="https://www.primefaces.org/cdn/api/upload.php"
-            accept="image/*"
-            [maxFileSize]="1000000"
-            (onUpload)="onUpload($event)"
-            [auto]="true"
-            chooseLabel="Image"
-          ></p-fileUpload>
+        <div class="grid justify-content-between mt-5">
+          <div class="col-9">
+            <input
+              style="width: 100%"
+              formControlName="image_url"
+              placeholder="Image url"
+              pInputText
+              id="image_url"
+            />
+          </div>
+          <div class="col-3">
+            <p-toast></p-toast>
+            <p-fileUpload
+              [chooseIcon]="'pi-upload'"
+              mode="basic"
+              name="demo[]"
+              url="https://www.primefaces.org/cdn/api/upload.php"
+              accept="image/*"
+              [maxFileSize]="1000000"
+              (onUpload)="onUpload($event)"
+              [auto]="true"
+              chooseLabel="Load"
+            ></p-fileUpload>
+          </div>
+
         </div>
 
         <div class="flex justify-content-start mt-5">
-          <p-button [rounded]="true" label="Submit"></p-button>
+          <p-button [rounded]="true" severity="danger" class="mr-3" label="Cancel"></p-button>
+          <p-button [rounded]="true" label="Submit" (click)="onSubmit()"></p-button>
         </div>
       </form>
     </div>
@@ -67,7 +85,7 @@
     <div class="col">
       <div class="grid justify-content-center">
         <div class="">
-          <heroes-hero-card></heroes-hero-card>
+          <heroes-hero-card [_hero]="_hero"></heroes-hero-card>
         </div>
       </div>
     </div>

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MegaMenuItem } from 'primeng/api';
 import { AutoCompleteCompleteEvent } from '../../interfaces/form.interface';
-import { GetHeroesService } from '../../services/get-heroes.service';
-import { map } from 'rxjs';
-import {Hero} from "../../interfaces/hero.interface";
-import {FormControl, FormGroup} from "@angular/forms";
+import { RestHeroService } from '../../services/rest-hero.service';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Hero } from '../../interfaces/hero.interface';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'heroes-menu',
@@ -12,20 +13,23 @@ import {FormControl, FormGroup} from "@angular/forms";
   styleUrl: './menu.component.css',
 })
 export class MenuComponent implements OnInit {
-  heroesNames: string[] = [];
+  _heroes: Hero[] = [];
   items: MegaMenuItem[] | undefined;
   filtered: any[] = [];
   formGroup!: FormGroup;
 
-  constructor(private getHeroesService: GetHeroesService) {}
+  constructor(
+    private restHeroService: RestHeroService,
+    private router: Router,
+  ) {}
 
   suggestion(event: AutoCompleteCompleteEvent) {
     let filtered: string[] = [];
     let query = event.query;
 
-    for (let name of this.heroesNames) {
-      if (name.toLowerCase().includes(query.toLowerCase())) {
-        filtered.push(name);
+    for (let { superhero } of this._heroes) {
+      if (superhero.toLowerCase().includes(query.toLowerCase())) {
+        filtered.push(superhero);
       }
     }
     this.filtered = filtered;
@@ -45,16 +49,34 @@ export class MenuComponent implements OnInit {
       },
     ];
 
-    this.getHeroesService
-      .getHeroes()
-      .subscribe((heroesRes)=>{
-        heroesRes.forEach((h)=>{
-          this.heroesNames.push(h.superhero)
-        })
-      })
-    console.log(this.heroesNames);
     this.formGroup = new FormGroup({
-      selectedCountry: new FormControl<string>(''),
+      searchInput: new FormControl<string>(''),
     });
+  }
+
+  filter() {
+    console.log(this.formGroup.value.searchInput);
+
+    const value = this.formGroup.value.searchInput;
+    this.restHeroService.getSuggestions(value).subscribe((heroesRes) => {
+      this._heroes = heroesRes;
+    });
+  }
+
+  keyupEvent() {
+    this.restHeroService
+      .getSuggestions(this.formGroup.value.searchInput)
+      .pipe(debounceTime(300))
+      .subscribe((heroesRes) => (this._heroes = heroesRes));
+  }
+
+  heroPage() {
+    for (const { id, superhero } of this._heroes) {
+      if (this.formGroup.value.searchInput == superhero) {
+        this.router.navigateByUrl(`/heroes/id/${id}`);
+        this.formGroup.reset('searchInput');
+        break;
+      }
+    }
   }
 }

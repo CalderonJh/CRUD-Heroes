@@ -7,3 +7,9 @@ export interface AutoCompleteCompleteEvent {
   originalEvent: Event;
   query: string;
 }
+
+export interface CardItem {
+  header?: string;
+  subheader?: string;
+  url?: string;
+}

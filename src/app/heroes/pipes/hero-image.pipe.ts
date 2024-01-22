@@ -8,6 +8,7 @@ export class HeroImagePipe implements PipeTransform {
 
   transform(hero: Hero | undefined, ext:string): string {
     if (!hero) return `assets/no-image.${ext}`
+    if (hero.image_url) return hero.image_url
     return `assets/heroes/${hero.id}.${ext}`
   }
 

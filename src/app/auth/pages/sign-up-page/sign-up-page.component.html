@@ -1,1 +1,60 @@
-<p>sign-up-page works!</p>
+<div class="grid">
+  <div class="flex col-12 justify-content-center">
+    <p-card header="Sign up" [style]="{ width: '50vh' }">
+      <div class="grid mt-2">
+        <div class="flex col-12">
+          <div class="col">
+            <span class="p-float-label">
+              <input pInputText style="width: 100%" id="name" />
+              <label for="name">Name</label>
+            </span>
+          </div>
+          <div class="col">
+            <span class="p-float-label">
+              <input pInputText style="width: 100%" id="lastname" />
+              <label for="lastname">Lastname</label>
+            </span>
+          </div>
+        </div>
+
+        <div class="col-12 mt-2 ml-1 align-items-center justify-content-center">
+          <span class="p-float-label">
+            <input pInputText id="email" style="width: 98%" />
+            <label for="email">Email</label>
+          </span>
+        </div>
+        <div class="col-12 mt-2 ml-1 align-items-center justify-content-center">
+          <span class="p-float-label">
+            <input pInputText style="width: 98%" id="username" />
+            <label for="username">Username</label>
+          </span>
+        </div>
+        <div class="col-12 justify-content-center">
+          <span class="p-float-label">
+            <label>Password</label>
+            <p-password
+              [showClear]="true"
+              [style]="{ width: '98%' }"
+              [inputStyle]="{ width: '100%', placeholder:'Password' }"
+              [(ngModel)]="value"
+              [toggleMask]="true"
+            ></p-password>
+          </span>
+        </div>
+      </div>
+
+      <ng-template pTemplate="footer">
+        <div class="flex justify-content-end">
+          <p-button [outlined]="true" [routerLink]="['/heroes/id']">
+            <span class="mr-2">Sign in</span>
+            <i class="pi pi-sign-in"></i>
+          </p-button>
+        </div>
+      </ng-template>
+    </p-card>
+  </div>
+
+  <div class="flex col-12 justify-content-center">
+    <a routerLink="/auth/login"><small>You have an account?</small> </a>
+  </div>
+</div>

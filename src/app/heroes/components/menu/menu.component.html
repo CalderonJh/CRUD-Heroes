@@ -14,19 +14,29 @@
       </div>
     </ng-template>
     <ng-template pTemplate="end">
+      <div class="grid justify-content-end align-items-center">
         <div class="col">
           <form [formGroup]="formGroup">
+
             <p-autoComplete
+              (keyup)="keyupEvent()"
+              (keyup.enter)="heroPage()"
               class="p-inputtext-sm"
-              [size]="80"
+              [size]="40"
               [inputStyle]="{ width: '100%' }"
               id="publisher"
               placeholder="Search heroes by name"
-              formControlName="selectedCountry"
+              formControlName="searchInput"
               [suggestions]="filtered"
               (completeMethod)="suggestion($event)"
             ></p-autoComplete>
+
+            <a [routerLink]="['/auth/login']" class="ml-4 mr-2">
+              <i class="pi pi-sign-out"></i>
+            </a>
+
           </form>
+        </div>
       </div>
 
       <!--<div class="mr-3">

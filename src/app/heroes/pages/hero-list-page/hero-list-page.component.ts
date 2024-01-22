@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GetHeroesService } from '../../services/get-heroes.service';
+import { RestHeroService } from '../../services/rest-hero.service';
 import { Hero } from '../../interfaces/hero.interface';
 
 @Component({
@@ -11,10 +11,10 @@ export class HeroListPageComponent implements OnInit {
 
   heroes: Hero[] = [];
 
-  constructor(private getHeroesService: GetHeroesService) {}
+  constructor(private restHeroService: RestHeroService) {}
 
   ngOnInit(): void {
-    this.getHeroesService.getHeroes().subscribe((heroesRes) => {
+    this.restHeroService.get().subscribe((heroesRes) => {
       this.heroes = heroesRes;
     });
   }

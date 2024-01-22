@@ -1,1 +1,41 @@
-<p>hero-page works!</p>
+<div class="grid align-items-center">
+  <div class="col justify-content-center ml-7 mt-4">
+    <img
+      ngSrc="{{ hero | heroImage: 'jpg' }}"
+      width="450"
+      height="600"
+      alt="hero image"
+    />
+  </div>
+  <div class="col">
+    <div class="line-height-3 mt-4">
+      <div *ngFor="let item of fields()" class="mt-5">
+        <strong class="text-lg">{{ item.title }}</strong
+        ><br />
+        {{ item.value }}
+      </div>
+    </div>
+    <div class="mt-4">
+      <p-button
+        class="mr-2"
+        icon="pi pi-undo"
+        routerLink="heroes"
+        label="Back"
+      ></p-button>
+      <p-button
+        class="mx-2"
+        icon="pi pi-user-edit"
+        [routerLink]="['/heroes/edit', hero?.id]"
+        label="Edit"
+      ></p-button>
+      <p-toast></p-toast>
+      <p-button
+        class="mx-2"
+        icon="pi pi-trash"
+        severity="danger"
+        (click)="deleteHero(hero?.id)"
+        label="Delete"
+      ></p-button>
+    </div>
+  </div>
+</div>

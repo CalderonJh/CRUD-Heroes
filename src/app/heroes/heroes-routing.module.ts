@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { NewHeroPageComponent } from './pages/new-hero-page/new-hero-page.component';
-import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { HeroListPageComponent } from './pages/hero-list-page/hero-list-page.component';
 import { HeroPageComponent } from './pages/hero-page/hero-page.component';
 
@@ -14,10 +13,6 @@ const routes: Routes = [
       {
         path: 'new',
         component: NewHeroPageComponent,
-      },
-      {
-        path: 'search',
-        component: SearchPageComponent,
       },
       {
         path: 'edit/:id',

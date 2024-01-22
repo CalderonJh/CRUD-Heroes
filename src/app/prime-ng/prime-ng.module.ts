@@ -8,6 +8,9 @@ import {AutoCompleteModule} from "primeng/autocomplete";
 import {ReactiveFormsModule} from "@angular/forms";
 import {FileUploadModule} from "primeng/fileupload";
 import {ToastModule} from "primeng/toast";
+import {TableModule} from "primeng/table";
+import {DataViewModule} from "primeng/dataview";
+import {PasswordModule} from "primeng/password";
 
 
 @NgModule({
@@ -19,6 +22,10 @@ import {ToastModule} from "primeng/toast";
     AutoCompleteModule,
     ReactiveFormsModule,
     FileUploadModule,
+    ToastModule,
+    TableModule,
+    DataViewModule,
+    PasswordModule,
     ToastModule
   ]
 })

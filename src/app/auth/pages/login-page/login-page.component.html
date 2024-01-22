@@ -1,1 +1,36 @@
-<p>login-page works!</p>
+<div class="grid">
+  <div class="flex col-12 justify-content-center">
+    <p-card header="Login" [style]="{ width: '17rem' }">
+      <div class="grid justify-content-center" style="width: 250px">
+        <div class="mt-5">
+          <span class="p-float-label mb-5">
+            <input pInputText style="width: 98%" id="username" />
+            <label for="username">Username</label>
+          </span>
+
+            <span class="p-float-label mt-3">
+              <p-password
+                [toggleMask]="true"
+                [(ngModel)]="value"
+                id="password"
+                [feedback]="false"
+              ></p-password>
+              <label for="password">Password</label>
+            </span>
+        </div>
+      </div>
+
+      <ng-template pTemplate="footer">
+        <div class="flex justify-content-end">
+          <p-button [outlined]="true" [routerLink]="['/heroes/id']">
+            <span class="mr-2">Login</span>
+            <i class="pi pi-sign-in"></i>
+          </p-button>
+        </div>
+      </ng-template>
+    </p-card>
+  </div>
+  <div class="flex col-12 justify-content-center">
+    <a routerLink="/auth/signup"><small>No account?</small> </a>
+  </div>
+</div>

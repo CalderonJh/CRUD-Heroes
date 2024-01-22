@@ -1,12 +1,12 @@
 <p-card
-  header="{{_hero? _hero.superhero: 'no provided'}}"
-  subheader="{{_hero?_hero.publisher: 'no provided' }}"
+  header="{{ editable ? _hero!.superhero : (data$ | async)?.header }}"
+  subheader="{{ editable ? (_hero!.publisher || ' - ') : (data$ | async)?.subheader }}"
   [style]="{ width: '290px', height: '480px' }"
 >
-  <div style="height: 300px; width: 250px">
+  <div style="height: 300px; width: 250px" [routerLink]=" editable? ['/heroes/id', _hero?.id] : null">
     <img
       alt="Card"
-      src="{{_hero | heroImage:'jpg'}}"
+      src="{{ editable? (_hero | heroImage: 'jpg'): (data$ | async)!.url}}"
       width="250"
       height="300"
     />
@@ -14,10 +14,10 @@
 
   <ng-template pTemplate="footer">
     <div *ngIf="editable" class="flex justify-content-between">
-      <a routerLink="new" [routerLink]="['/heroes/id', '_hero.id']">
+      <a [routerLink]="['/heroes/id', _hero?.id]">
         <i class="pi pi-ellipsis-h bottom-0"></i>
       </a>
-      <a routerLink="new" [routerLink]="['/heroes/edit', '_hero.id']">
+      <a [routerLink]="['/heroes/edit', _hero?.id]">
         <i class="pi pi-user-edit"></i>
       </a>
     </div>
